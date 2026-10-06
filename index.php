@@ -70,7 +70,11 @@
                     </div>
                 </li>
             </ul>
-            
+
+            <!-- Clear tasks -->
+             <button type="button" class="clear-all-btn">
+                Clear All Tasks
+            </button>
         </div>
     </main>
 
