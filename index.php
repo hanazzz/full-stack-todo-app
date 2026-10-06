@@ -91,19 +91,27 @@ foreach ($task_rows as $task) {
 
                     <div class="task-icons">
                         <!-- Add logic for check button to cross out completed tasks -->
-                        <form action="toggle.php" method="POST" class="inline-form"></form>
-                            <button class="task-btn">
+                        <form action="toggleComplete.php" method="POST" class="inline-form">
+                            <!-- Get task ID from database -->
+                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+                            <button type="submit" title="Mark task as completed" class="task-btn">
                                 <i class="fa-solid fa-circle-check fa-2xl"></i>
                             </button>
                         </form>
-                        
+
                         <!-- Add logic for trash button to delete tasks -->
-                        <button class="task-btn">
-                            <i class="fa-solid fa-trash fa-2xl"></i>
-                        </button>
+                        <form action="delete.php" method="POST" class="inline-form">
+                            <!-- Get task ID from database -->
+                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+                            <button type="submit" title="Delete task" class="task-btn">
+                                <i class="fa-solid fa-trash fa-2xl"></i>
+                            </button>
+                        </form>
 
                     </div>
                 </li>
+                <?php endforeach; ?>
+                <?php endif; ?>
             </ul>
 
             <!-- Clear tasks -->

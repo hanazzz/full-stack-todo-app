@@ -134,6 +134,11 @@ Task List
     opacity: 0.6;
 }
 
+.inline-form {
+    display: inline;
+    margin: 0;
+}
+
 .task-item {
     display: flex;
     align-items: center;
