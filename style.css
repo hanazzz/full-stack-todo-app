@@ -4,6 +4,10 @@ Global Styles
 
 */
 
+:root {
+    --primary-color: #d3ec8e;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -45,7 +49,7 @@ h1 {
     column-gap: 2rem;
     border: 1px solid black;
     border-radius: 10px;
-    width: 500px;
+    width: 600px;
     height: 200px;
     margin: 0 auto;
 }
@@ -59,7 +63,7 @@ h1 {
 }
 
 .task-counter {
-    background-color: aquamarine;
+    background-color: var(--primary-color);
     height: 130px;
     width: 130px;
     border-radius: 50%;
@@ -104,7 +108,7 @@ Form
     width: 45px;    
     border-radius: 50%;
     border: none;
-    background-color: aquamarine;
+    background-color: var(--primary-color);
     cursor: pointer;
 }
 
