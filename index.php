@@ -111,7 +111,6 @@ foreach ($task_rows as $task) {
                     </div>
                 </li>
                 <?php endforeach; ?>
-                <?php endif; ?>
             </ul>
 
             <!-- Clear tasks -->
@@ -120,6 +119,8 @@ foreach ($task_rows as $task) {
                     Clear all tasks
                 </button>
             </form>
+            
+            <?php endif; ?>
         </div>
     </main>
 
