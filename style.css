@@ -174,3 +174,62 @@ Task List
     color: white;
     border-radius: 10px;
 }
+
+
+/* 
+
+Media Queries
+
+*/
+
+@media screen and (max-width: 767px) {
+    
+    main {
+        margin-top: 1rem;
+    }
+
+    .todo-tracker {
+        width: 100%;
+        height: auto;
+        column-gap: 1rem;
+        padding: 1rem;
+    }
+
+    .completed-subheading {
+        text-align: center;
+    }
+
+    .task-counter {
+        padding: 0px 20px;
+        height: 90px;
+        width: 90px;
+        font-size: 28px;
+    }
+
+    .task-input {
+        width: 100%;
+    }
+
+    .task-item {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 340px) {
+
+    h1 {
+        font-size: 30px;
+    }
+    
+    .task-counter {
+        height: 70px;
+        width: 70px;
+        font-size: 22px;
+    }
+
+    spacer {
+        padding: 0 3px;
+    }
+
+}
