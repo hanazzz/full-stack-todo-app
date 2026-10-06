@@ -1,3 +1,38 @@
+<?php
+
+// Connect database file
+require __DIR__ . '/db.php';
+
+// Fetch data from database every time page is reloaded
+
+// Run a query to get all tasks from the database (newest first)
+$task_result__set = mysqli_query(
+    $mysqli, 
+    "SELECT id, title, is_done FROM tasks ORDER BY id DESC"
+);
+
+// Store all rows of data in a php array for later use
+$task_rows = [];
+while ($task_row = mysqli_fetch_assoc($task_result__set)) {
+    // Convert is_done to integer (from string)
+    $task_row['is_done'] = (int)$task_row['is_done'];
+    $task_rows[] = $task_row;
+}
+
+// Count totals for the To-do Tracker
+// Count # of all tasks
+$total_task_count = count($task_rows)
+// Count # of completed tasks
+$completed_task_count = 0;
+foreach ($tasks_rows as $task) {
+    if ($task['is_done'] === 1) {
+        $completed_task_count++;
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +57,7 @@
                     <p class="completed-subheading">You got this!</p>
                 </div>
                 <div class="task-counter">
-                    1 <span class="spacer">/</span> 3
+                    <?php echo $completed_task_count ?> <span class="spacer">/</span> <?php echo $total_task_count ?>
                 </div>
             </div>
 
