@@ -5,10 +5,10 @@ require __DIR__ . '/db.php';
 
 // Fetch data from database every time page is reloaded
 
-// Run a query to get all tasks from the database (newest first)
+// Run a query to get all tasks from the database (incomplete tasks first, then newest first)
 $task_result__set = mysqli_query(
     $mysqli, 
-    "SELECT id, title, is_done FROM tasks ORDER BY id DESC"
+    "SELECT id, title, is_done FROM tasks ORDER BY is_done, id DESC"
 );
 
 // Store all rows of data in a php array for later use
@@ -63,7 +63,7 @@ foreach ($task_rows as $task) {
 
             <!-- Task Input -->
             <form action="add.php" method="POST" class="task-form">
-                <input type="text" name="task_title" class="task-input" placeholder="Your next task is..." required>
+                <input type="text" maxlength="100" name="task_title" class="task-input" placeholder="Your next task is..." required>
                 <button type="submit" class="submit-btn">
                     <i class="fa-solid fa-plus fa-2xl"></i>
                 </button>
@@ -119,7 +119,7 @@ foreach ($task_rows as $task) {
                     Clear all tasks
                 </button>
             </form>
-            
+
             <?php endif; ?>
         </div>
     </main>
