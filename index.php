@@ -24,6 +24,13 @@
                     1 <span class="spacer">/</span> 3
                 </div>
             </div>
+
+            <form class="task-form">
+                <input type="text" class="task-input" placeholder="Your next task is..." required>
+                <button type="submit" class="submit-btn">
+                    <i class="fa-solid fa-plus fa-2xl"></i>
+                </button>
+            </form>
         </div>
     </main>
 
