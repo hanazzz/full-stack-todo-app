@@ -1,0 +1,76 @@
+/* 
+
+Global Styles
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+}
+
+.container {
+    width: 90%;
+    max-width: 1440px;
+    margin: auto;
+}
+
+
+
+/* 
+
+To-do Tracker
+
+*/
+
+h1 {
+    font-size: 36px;
+    font-family: "JetBrains Mono", monospace;
+}
+
+.todo-tracker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 2rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 500px;
+    height: 200px;
+    margin: 0 auto;
+}
+
+.completed-subheading {
+    text-align: left;
+    padding-top: 5px;
+    font-style: italic;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.task-counter {
+    background-color: aquamarine;
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: bold;
+    font-size: 32px;
+}
+
+.spacer {
+    padding: 0 5px;   
+}
