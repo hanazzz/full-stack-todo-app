@@ -129,6 +129,11 @@ Task List
     margin: 2rem auto;
 }
 
+.li-text.done {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
 .task-item {
     display: flex;
     align-items: center;

@@ -72,37 +72,36 @@ foreach ($task_rows as $task) {
             <!-- Task List -->
              <h1>To-do List:</h1>
             <ul class="task-list">
+
+                <!-- Check if task list is empty -->
+                <?php if (empty($task_rows)): ?>
+                    <!-- If no tasks, prompt user to create task -->
+                    <li class="task-item">
+                        <div class="li-text">Add a task to get started...</div>
+                    </li>
+                    
+                <!-- If task list has tasks, display all tasks -->
+                <?php else: ?>
+                    <?php foreach ($task_rows as $task): ?>
                 <li class="task-item">
-                    <div class="li-text">Take out trash</div>
-                    <div class="task-icons">
-                        <button class="task-btn">
-                            <i class="fa-solid fa-circle-check fa-2xl"></i>
-                        </button>
-                        <button class="task-btn">
-                            <i class="fa-solid fa-trash fa-2xl"></i>
-                        </button>
+                    <!-- Check if task is done, if it is then add "done" class -->
+                    <div class="li-text <?php echo $task['is_done'] ? 'done' : '' ?>">
+                        <?php echo $task['title']; ?>
                     </div>
-                </li>
-                <li class="task-item">
-                    <div class="li-text">Read 50 pages</div>
+
                     <div class="task-icons">
-                        <button class="task-btn">
-                            <i class="fa-solid fa-circle-check fa-2xl"></i>
-                        </button>
+                        <!-- Add logic for check button to cross out completed tasks -->
+                        <form action="toggle.php" method="POST" class="inline-form"></form>
+                            <button class="task-btn">
+                                <i class="fa-solid fa-circle-check fa-2xl"></i>
+                            </button>
+                        </form>
+                        
+                        <!-- Add logic for trash button to delete tasks -->
                         <button class="task-btn">
                             <i class="fa-solid fa-trash fa-2xl"></i>
                         </button>
-                    </div>
-                </li>
-                <li class="task-item">
-                    <div class="li-text">This is a really really long task with a lot of text</div>
-                    <div class="task-icons">
-                        <button class="task-btn">
-                            <i class="fa-solid fa-circle-check fa-2xl"></i>
-                        </button>
-                        <button class="task-btn">
-                            <i class="fa-solid fa-trash fa-2xl"></i>
-                        </button>
+
                     </div>
                 </li>
             </ul>
