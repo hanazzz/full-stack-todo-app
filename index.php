@@ -115,7 +115,7 @@ foreach ($task_rows as $task) {
             </ul>
 
             <!-- Clear tasks -->
-             <form action="deleteAll.php" method="POST">
+             <form id="clear-form" action="deleteAll.php" method="POST">
                 <button type="submit" class="clear-all-btn">
                     Clear all tasks
                 </button>
