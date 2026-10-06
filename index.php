@@ -1,6 +1,6 @@
 <?php
 
-// Connect database file
+// Connect to the database
 require __DIR__ . '/db.php';
 
 // Fetch data from database every time page is reloaded
@@ -21,10 +21,10 @@ while ($task_row = mysqli_fetch_assoc($task_result__set)) {
 
 // Count totals for the To-do Tracker
 // Count # of all tasks
-$total_task_count = count($task_rows)
+$total_task_count = count($task_rows);
 // Count # of completed tasks
 $completed_task_count = 0;
-foreach ($tasks_rows as $task) {
+foreach ($task_rows as $task) {
     if ($task['is_done'] === 1) {
         $completed_task_count++;
     }
@@ -62,8 +62,8 @@ foreach ($tasks_rows as $task) {
             </div>
 
             <!-- Task Input -->
-            <form class="task-form">
-                <input type="text" class="task-input" placeholder="Your next task is..." required>
+            <form action="add.php" method="POST" class="task-form">
+                <input type="text" name="task_title" class="task-input" placeholder="Your next task is..." required>
                 <button type="submit" class="submit-btn">
                     <i class="fa-solid fa-plus fa-2xl"></i>
                 </button>
