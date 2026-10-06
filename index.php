@@ -15,6 +15,7 @@
 <body>
     <main>
         <div class="container">
+            <!-- To-do Tracker -->
             <div class="todo-tracker">
                 <div class="task-tracker-text">
                     <h1>Tasks Completed</h1>
@@ -25,12 +26,51 @@
                 </div>
             </div>
 
+            <!-- Task Input -->
             <form class="task-form">
                 <input type="text" class="task-input" placeholder="Your next task is..." required>
                 <button type="submit" class="submit-btn">
                     <i class="fa-solid fa-plus fa-2xl"></i>
                 </button>
             </form>
+
+            <!-- Task List -->
+            <ul class="task-list">
+                <li class="task-item">
+                    <div class="li-text">Take out trash</div>
+                    <div class="task-icons">
+                        <button class="task-btn">
+                            <i class="fa-solid fa-circle-check fa-2xl"></i>
+                        </button>
+                        <button class="task-btn">
+                            <i class="fa-solid fa-trash fa-2xl"></i>
+                        </button>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <div class="li-text">Read 50 pages</div>
+                    <div class="task-icons">
+                        <button class="task-btn">
+                            <i class="fa-solid fa-circle-check fa-2xl"></i>
+                        </button>
+                        <button class="task-btn">
+                            <i class="fa-solid fa-trash fa-2xl"></i>
+                        </button>
+                    </div>
+                </li>
+                <li class="task-item">
+                    <div class="li-text">This is a really really long task with a lot of text</div>
+                    <div class="task-icons">
+                        <button class="task-btn">
+                            <i class="fa-solid fa-circle-check fa-2xl"></i>
+                        </button>
+                        <button class="task-btn">
+                            <i class="fa-solid fa-trash fa-2xl"></i>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            
         </div>
     </main>
 
