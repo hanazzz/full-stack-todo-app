@@ -54,7 +54,7 @@ foreach ($task_rows as $task) {
             <div class="todo-tracker">
                 <div class="task-tracker-text">
                     <h1>Tasks Completed</h1>
-                    <p class="completed-subheading">You got this!</p>
+                    <p id="motivational-text">You got this!</p>
                 </div>
                 <div class="task-counter">
                     <?php echo $completed_task_count ?> <span class="spacer">/</span> <?php echo $total_task_count ?>

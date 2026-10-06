@@ -54,7 +54,7 @@ h1 {
     margin: 0 auto;
 }
 
-.completed-subheading {
+#motivational-text {
     text-align: left;
     padding-top: 5px;
     font-style: italic;
@@ -209,7 +209,7 @@ Media Queries
         padding: 1rem;
     }
 
-    .completed-subheading {
+    #motivational-text {
         text-align: center;
     }
 
