@@ -46,7 +46,15 @@ foreach ($task_rows as $task) {
     <!-- daisyUI CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style type="text/tailwindcss">
+      @theme {
+        /* Variable for headline font */
+        --font-headline: "JetBrains Mono", monospace;;
+        /* Variable for body font */
+        --font-body: "Inter", sans-serif;
+      }
+    </style>
+    <link rel="stylesheet" href="style.css">
     <title>Full Stack To-Do App</title>
 </head>
 
@@ -54,35 +62,19 @@ foreach ($task_rows as $task) {
     <main>
         <div class="container max-w-xl my-8 mx-auto px-4">
             <!-- To-do Tracker -->
-            <!-- <div class="stat todo-tracker">
-                <div class="stat-title task-tracker-text">
-                    <h1>Tasks Completed</h1>
-                    <p id="motivational-text">You got this!</p>
-                </div>
-                <div class="stat-value task-counter">
-                    <?php echo $completed_task_count ?> <span class="spacer">/</span> <?php echo $total_task_count ?>
-                </div>
-            </div> -->
             <div class="flex items-center justify-center">
                 <div class="stats shadow w-90 sm:w-md">
                     <div class="stat place-items-center">
-                        <div class="stat-title"><h1 class="text-2xl sm:text-4xl font-bold">Tasks Completed</h1></div>
-                        <div class="stat-value text-primary">
-                            <?php echo $completed_task_count ?> <span class="spacer">/</span> <?php echo $total_task_count ?>
+                        <div class="stat-title"><h1 class="text-2xl sm:text-4xl font-bold text-clifford">Tasks Completed</h1></div>
+                        <div class="stat-value text-primary font-headline">
+                            <?php echo $completed_task_count ?> <span class="px-1">/</span> <?php echo $total_task_count ?>
                         </div>
-                        <div id="motivational-text" class="stat-desc italic text-wrap">You got this!</div>
+                        <div id="motivational-text" class="stat-desc italic text-wrap pt-2 tracking-wider text-base">You got this!</div>
                     </div>
                 </div>
             </div>
 
             <!-- Task Input -->
-            <!-- <form action="add.php" method="POST" class="task-form">
-                <input type="text" maxlength="100" name="task_title" class="task-input" placeholder="Your next task is..." required>
-                <button type="submit" class="submit-btn">
-                    <i class="fa-solid fa-plus fa-2xl"></i>
-                </button>
-            </form> -->
-
             <div class="flex items-center justify-center">
                 <form action="add.php" method="POST">
                     <div class="w-2xs sm:w-xl my-8 mx-auto join">
@@ -109,7 +101,7 @@ foreach ($task_rows as $task) {
                 <?php if (empty($task_rows)): ?>
                     <!-- If no tasks, prompt user to create task -->
                     <li class="list-row">
-                        <div class="li-text">Add a task to get started...</div>
+                        <div class="">Add a task to get started...</div>
                     </li>
                     
                 <!-- If task list has tasks, display all tasks -->
