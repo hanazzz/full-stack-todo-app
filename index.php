@@ -60,98 +60,105 @@ foreach ($task_rows as $task) {
 
 <body>
     <main>
-        <div class="container max-w-xl my-8 mx-auto px-4">
+        <div class="container my-4 sm:mt-12 sm:mb-16 mx-auto px-4 md:px-2 lg:px-4 md:grid md:grid-cols-3 gap-12">
             <!-- To-do Tracker -->
-            <div class="flex items-center justify-center">
-                <div class="stats border border-gray-400 w-90 sm:w-lg">
-                    <div class="stat place-items-center">
-                        <div class="stat-title"><h1 class="text-2xl sm:text-4xl font-bold">Tasks Completed</h1></div>
-                        <div class="stat-value text-primary font-headline">
-                            <?php echo $completed_task_count ?> <span class="px-1">/</span> <?php echo $total_task_count ?>
+            <div class="flex justify-center items-start border-b md:border-b-0 md:border-r border-gray-300">
+                <!-- <div class="stats w-90 sm:w-full"> -->
+                    <div class="stat h-full flex flex-col justify-between place-items-center text-center pb-10">
+                        <div>
+                            <div class="stat-title"><h1 class="text-3xl lg:text-4xl font-bold text-wrap">Tasks Completed</h1></div>
+                            <div class="stat-value text-primary font-headline my-2 md:my-4">
+                                <?php echo $completed_task_count ?> <span class="px-1">/</span> <?php echo $total_task_count ?>
+                            </div>
                         </div>
-                        <div id="motivational-text" class="stat-desc italic text-wrap pt-2 tracking-wider text-base">You got this!</div>
+                        <div id="motivational-text" class="stat-desc italic text-wrap tracking-wider text-base">You got this!</div>
                     </div>
+                <!-- </div> -->
+            </div>
+
+            <!-- Task Management -->
+             <div class="col-span-2 flex flex-col">
+                <!-- Task Input -->
+                <div class="mx-auto">
+                    <form action="add.php" method="POST">
+                        <div class="w-2xs sm:w-md my-8 mx-auto join">
+                            <!-- <div class="w-full sm:w-lg"> -->
+                                <label class="w-full input focus:bg-base-200 join-item">
+                                <input type="text" maxlength="100" name="task_title" class="" placeholder="Your next task is..." required>
+                                </label>
+                                <!-- <div class="validator-hint hidden">Please enter a task!</div> -->
+                            <!-- </div> -->
+                            <button type="submit" class="btn btn-primary join-item">
+                                <i class="fa-solid fa-plus fa-2xl"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </div>
 
-            <!-- Task Input -->
-            <div class="flex items-center justify-center">
-                <form action="add.php" method="POST">
-                    <div class="w-2xs sm:w-xl my-8 mx-auto join">
-                        <div class="w-full sm:w-lg">
-                            <label class="w-full input focus:bg-base-200 join-item">
-                            <input type="text" maxlength="100" name="task_title" class="" placeholder="Your next task is..." required>
-                            </label>
-                            <!-- <div class="validator-hint hidden">Please enter a task!</div> -->
-                        </div>
-                        <button type="submit" class="btn btn-primary join-item">
-                            <i class="fa-solid fa-plus fa-2xl"></i>
+
+
+                <!-- Task List -->
+                <div class="sm:my-4">
+                    <h1 class="text-xl font-bold p-2 mb-2">To-do List:</h1>
+                    <ul class="list my-4">
+
+                        <!-- Check if task list is empty -->
+                        <?php if (empty($task_rows)): ?>
+                            <!-- If no tasks, prompt user to create task -->
+                            <li class="list-row">
+                                <div class="">Add a task to get started...</div>
+                            </li>
+                            
+                        <!-- If task list has tasks, display all tasks -->
+                        <?php else: ?>
+                            <?php foreach ($task_rows as $task): ?>
+                        <li class="list-row py-2 rounded-none border-b border-gray-200 first:border-t">
+                            <!-- Task title -->
+                            <!-- Check if task is done, if it is then style accordingly -->
+                            <div class="list-col-grow content-center <?php echo $task['is_done'] ? 'line-through opacity-60' : '' ?>">
+                                <?php echo $task['title']; ?>
+                            </div>
+
+                            <!-- Check button -->
+                            <div class="">
+                                <!-- Add logic for check button to cross out completed tasks -->
+                                <form action="toggleComplete.php" method="POST" class="">
+                                    <!-- Get task ID from database -->
+                                    <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+                                    <button type="submit" title="Mark task as completed" class="btn btn-outline border-none btn-square btn-success">
+                                        <i class="fa-solid fa-circle-check fa-xl"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- Trash button -->
+                            <div class="">
+                                <!-- Add logic for trash button to delete tasks -->
+                                <form action="delete.php" method="POST" class="">
+                                    <!-- Get task ID from database -->
+                                    <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+                                    <button type="submit" title="Delete task" class="btn btn-outline border-none btn-square btn-error ">
+                                        <i class="fa-solid fa-trash fa-xl"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+
+                <!-- Clear tasks -->
+                <div class="flex items-center justify-center">
+                    <form id="clear-form" action="deleteAll.php" method="POST">
+                        <button type="submit" class="btn btn-error mt-4 mb-6 sm:my-8">
+                            Clear all tasks
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
+                <?php endif; ?>
             </div>
-
-
-
-            <!-- Task List -->
-            <h1 class="text-xl font-bold p-2 mb-2">To-do List:</h1>
-            <ul class="list my-4">
-
-                <!-- Check if task list is empty -->
-                <?php if (empty($task_rows)): ?>
-                    <!-- If no tasks, prompt user to create task -->
-                    <li class="list-row">
-                        <div class="">Add a task to get started...</div>
-                    </li>
-                    
-                <!-- If task list has tasks, display all tasks -->
-                <?php else: ?>
-                    <?php foreach ($task_rows as $task): ?>
-                <li class="list-row py-2 rounded-none border-b border-gray-200 first:border-t">
-                    <!-- Task title -->
-                    <!-- Check if task is done, if it is then style accordingly -->
-                    <div class="list-col-grow content-center <?php echo $task['is_done'] ? 'line-through opacity-60' : '' ?>">
-                        <?php echo $task['title']; ?>
-                    </div>
-
-                    <!-- Check button -->
-                    <div class="">
-                        <!-- Add logic for check button to cross out completed tasks -->
-                        <form action="toggleComplete.php" method="POST" class="">
-                            <!-- Get task ID from database -->
-                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
-                            <button type="submit" title="Mark task as completed" class="btn btn-outline border-none btn-square btn-success">
-                                <i class="fa-solid fa-circle-check fa-xl"></i>
-                            </button>
-                        </form>
-                    </div>
-
-                    <!-- Trash button -->
-                    <div class="">
-                        <!-- Add logic for trash button to delete tasks -->
-                        <form action="delete.php" method="POST" class="">
-                            <!-- Get task ID from database -->
-                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
-                            <button type="submit" title="Delete task" class="btn btn-outline border-none btn-square btn-error ">
-                                <i class="fa-solid fa-trash fa-xl"></i>
-                            </button>
-                        </form>
-                    </div>
-
-                </li>
-                <?php endforeach; ?>
-            </ul>
-
-            <!-- Clear tasks -->
-             <div class="flex items-center justify-center">
-                <form id="clear-form" action="deleteAll.php" method="POST">
-                    <button type="submit" class="btn btn-error mt-4 mb-2 sm:my-8">
-                        Clear all tasks
-                    </button>
-                </form>
-            </div
-
-            <?php endif; ?>
         </div>
     </main>
 
