@@ -65,7 +65,7 @@ foreach ($task_rows as $task) {
             <div class="flex items-center justify-center">
                 <div class="stats shadow w-90 sm:w-md">
                     <div class="stat place-items-center">
-                        <div class="stat-title"><h1 class="text-2xl sm:text-4xl font-bold text-clifford">Tasks Completed</h1></div>
+                        <div class="stat-title"><h1 class="text-2xl sm:text-4xl font-bold">Tasks Completed</h1></div>
                         <div class="stat-value text-primary font-headline">
                             <?php echo $completed_task_count ?> <span class="px-1">/</span> <?php echo $total_task_count ?>
                         </div>
