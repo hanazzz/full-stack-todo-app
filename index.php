@@ -58,8 +58,8 @@ foreach ($task_rows as $task) {
     <title>Full Stack To-Do App</title>
 </head>
 
-<body>
-    <main>
+<body class="flex flex-col h-screen">
+    <main class="grow">
         <div class="container my-4 sm:mt-12 sm:mb-16 mx-auto px-4 md:px-2 lg:px-4 md:grid md:grid-cols-3 gap-12">
             <!-- To-do Tracker -->
             <div class="flex justify-center items-start border-b md:border-b-0 md:border-r border-gray-300">
@@ -161,6 +161,13 @@ foreach ($task_rows as $task) {
             </div>
         </div>
     </main>
+
+    <footer class="footer sm:footer-horizontal footer-center bg-primary text-primary-content p-4 mt-6 shrink">
+      <aside>
+            <a href="https://github.com/hanazzz/full-stack-todo-app" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github fa-xl"></i></a>
+        </aside>
+    </footer>
+    
 
     <script src="app.js"></script>
 </body>
