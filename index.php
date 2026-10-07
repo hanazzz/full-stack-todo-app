@@ -63,7 +63,7 @@ foreach ($task_rows as $task) {
         <div class="container max-w-xl my-8 mx-auto px-4">
             <!-- To-do Tracker -->
             <div class="flex items-center justify-center">
-                <div class="stats shadow w-90 sm:w-md">
+                <div class="stats border border-gray-400 w-90 sm:w-lg">
                     <div class="stat place-items-center">
                         <div class="stat-title"><h1 class="text-2xl sm:text-4xl font-bold">Tasks Completed</h1></div>
                         <div class="stat-value text-primary font-headline">
@@ -79,12 +79,12 @@ foreach ($task_rows as $task) {
                 <form action="add.php" method="POST">
                     <div class="w-2xs sm:w-xl my-8 mx-auto join">
                         <div class="w-full sm:w-lg">
-                            <label class="w-full input join-item">
-                            <input type="text" maxlength="100" name="task_title" class="task-input" placeholder="Your next task is..." required>
+                            <label class="w-full input focus:bg-base-200 join-item">
+                            <input type="text" maxlength="100" name="task_title" class="" placeholder="Your next task is..." required>
                             </label>
                             <!-- <div class="validator-hint hidden">Please enter a task!</div> -->
                         </div>
-                        <button type="submit" class="btn btn-neutral join-item">
+                        <button type="submit" class="btn btn-primary join-item">
                             <i class="fa-solid fa-plus fa-2xl"></i>
                         </button>
                     </div>
@@ -95,7 +95,7 @@ foreach ($task_rows as $task) {
 
             <!-- Task List -->
             <h1 class="text-xl font-bold p-2 mb-2">To-do List:</h1>
-            <ul class="list bg-base-200 rounded-box shadow-sm my-4">
+            <ul class="list my-4">
 
                 <!-- Check if task list is empty -->
                 <?php if (empty($task_rows)): ?>
@@ -107,7 +107,7 @@ foreach ($task_rows as $task) {
                 <!-- If task list has tasks, display all tasks -->
                 <?php else: ?>
                     <?php foreach ($task_rows as $task): ?>
-                <li class="list-row py-2">
+                <li class="list-row py-2 rounded-none border-b border-gray-200 first:border-t">
                     <!-- Task title -->
                     <!-- Check if task is done, if it is then style accordingly -->
                     <div class="list-col-grow content-center <?php echo $task['is_done'] ? 'line-through opacity-60' : '' ?>">
@@ -120,7 +120,7 @@ foreach ($task_rows as $task) {
                         <form action="toggleComplete.php" method="POST" class="">
                             <!-- Get task ID from database -->
                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
-                            <button type="submit" title="Mark task as completed" class="btn btn-soft btn-square btn-success p-1">
+                            <button type="submit" title="Mark task as completed" class="btn btn-outline border-none btn-square btn-success">
                                 <i class="fa-solid fa-circle-check fa-xl"></i>
                             </button>
                         </form>
@@ -132,7 +132,7 @@ foreach ($task_rows as $task) {
                         <form action="delete.php" method="POST" class="">
                             <!-- Get task ID from database -->
                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
-                            <button type="submit" title="Delete task" class="btn btn-soft btn-square btn-error p-1">
+                            <button type="submit" title="Delete task" class="btn btn-outline border-none btn-square btn-error ">
                                 <i class="fa-solid fa-trash fa-xl"></i>
                             </button>
                         </form>
