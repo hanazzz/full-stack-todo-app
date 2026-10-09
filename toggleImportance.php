@@ -1,4 +1,4 @@
-<!-- Handles logic for toggling task completion -->
+<!-- Handles logic for toggling task importance -->
 
 <?php
 
@@ -8,11 +8,11 @@ require __DIR__ . '/db.php';
 // Get task ID from the hidden input
 $task_id = (int)($_POST['id'] ?? 0);
 
-// If valid id, then flip the is_done from 0 to 1 or 1 to 0
+// If valid id, then flip the is_important from 0 to 1 or 1 to 0
 if($task_id > 0) {
     mysqli_query(
         $mysqli,
-        "UPDATE tasks SET is_done = IF(is_done=1, 0, 1) WHERE id = $task_id"
+        "UPDATE tasks SET is_important = IF(is_important=1, 0, 1) WHERE id = $task_id"
     );
 }
 
