@@ -134,12 +134,13 @@ foreach ($task_rows as $task) {
 
                                     <!-- Check button -->
                                     <div class="">
-                                        <!-- Add logic for check button to cross out completed tasks -->
+                                        <!-- Add logic for check button to toggle completion status -->
                                         <form action="toggleComplete.php" method="POST" class="">
                                             <!-- Get task ID from database -->
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
                                             <button type="submit" title="Mark task as completed" class="btn btn-outline border-none btn-square btn-success">
-                                                <i class="fa-solid fa-circle-check fa-xl"></i>
+                                                <!-- If tasks is completed, then check button is filled in. If not, then it's unfilled. -->
+                                                <i class="<?php echo $task['is_done'] ? 'fa-solid' : 'fa-regular' ?> fa-circle-check fa-xl"></i>
                                             </button>
                                         </form>
                                     </div>
