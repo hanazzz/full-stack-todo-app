@@ -29,6 +29,11 @@ foreach ($task_rows as $task) {
         $completed_task_count++;
     }
 }
+// Calculates % of completed tasks, rounded to a whole number
+// Only run calculation if # of completed tasks is 0 (to avoid error)
+if ($completed_task_count != 0) {
+    $completed_task_percentage = round(($completed_task_count/$total_task_count)*100);    
+}
 
 ?>
 
@@ -68,27 +73,38 @@ foreach ($task_rows as $task) {
 
 <body class="flex flex-col h-screen">
     <main class="grow">
-        <div class="container my-4 sm:mt-12 sm:mb-16 mx-auto px-4 md:px-2 lg:px-4 md:grid md:grid-cols-3 gap-12">
+        <div class="my-4 sm:mt-12 sm:mb-16 mx-auto px-4 md:px-8 lg:px-16 md:grid md:grid-cols-3 gap-12">
 
 
             <!-- To-do Tracker -->
             <div class="flex justify-center items-start border-b md:border-b-0 md:border-r border-gray-300">
                 <!-- <div class="stats w-90 sm:w-full"> -->
-                <div class="stat h-full flex flex-col justify-between place-items-center text-center pb-10">
-                    <div>
+                <div class="stat h-full flex flex-col justify-between place-items-center text-center gap-2 pb-6 sm:pb-10">
+                    <!-- Tasks Completed Stats -->
+                    <div class="flex flex-col justify-berween place-items-center">
+                        <!-- Header -->
                         <div class="stat-title"><h1 class="text-3xl lg:text-4xl font-bold text-wrap">Tasks Completed</h1></div>
-                        <div class="stat-value text-primary font-headline my-2 md:my-4">
-                            <?php echo $completed_task_count ?> <span class="px-1">/</span> <?php echo $total_task_count ?>
+                        <!-- Stats -->
+                        <div>
+                            <!-- Display count of tasks completed -->
+                            <div class="stat-value text-primary font-headline mt-2 md:mt-4 md:mb-2">
+                                <?php echo $completed_task_count ?> <span class="px-1">/</span> <?php echo $total_task_count ?>
+                            </div>
+                            <!-- Display percentage of tasks completed using a progress indicator -->
+                            <div>
+                                <progress class="progress progress-success w-56 md:w-50 lg:w-56" value="<?php echo $completed_task_percentage ?>" max="100"></progress>
+                            </div>
                         </div>
                     </div>
-                    <div id="motivational-text" class="stat-desc italic text-wrap tracking-wider text-base">You got this!</div>
+                    <!-- Motivational Text -->
+                    <div id="motivational-text" class="stat-desc italic text-wrap tracking-wider text-sm md:text-base">You got this!</div>
                 </div>
                 <!-- </div> -->
             </div>
 
 
             <!-- Task Management -->
-             <div class="col-span-2 flex flex-col">
+             <div class="col-span-2 flex flex-col px-2 md:px-4">
 
                 <!-- Task Input -->
                 <div class="mx-auto">
@@ -162,9 +178,9 @@ foreach ($task_rows as $task) {
                 </div>
 
                 <!-- Clear tasks -->
-                <div class="flex items-center justify-center">
+                <div class="flex items-end justify-center">
                     <form id="clear-form" action="deleteAll.php" method="POST">
-                        <button type="submit" class="btn btn-error mt-4 mb-6 sm:my-8">
+                        <button type="submit" class="btn btn-error mt-6 mb-4 sm:mt-10 sm:mb-8">
                             Clear all tasks
                         </button>
                     </form>
