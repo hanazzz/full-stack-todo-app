@@ -8,14 +8,15 @@ require __DIR__ . '/db.php';
 // Runs a query to get all tasks from the database (incomplete tasks first, then newest first)
 $task_result__set = mysqli_query(
     $mysqli, 
-    "SELECT id, title, is_done FROM tasks ORDER BY is_done, id DESC"
+    "SELECT id, title, is_important, is_done FROM tasks ORDER BY is_done, id DESC"
 );
 
 // Stores all rows of data in a php array for later use
 $task_rows = [];
 while ($task_row = mysqli_fetch_assoc($task_result__set)) {
-    // Converts is_done to integer (from string)
+    // Converts is_done and is_important to integer (from string)
     $task_row['is_done'] = (int)$task_row['is_done'];
+    $task_row['is_important'] = (int)$task_row['is_important'];
     $task_rows[] = $task_row;
 }
 
@@ -142,19 +143,35 @@ if ($completed_task_count != 0) {
 
                                 <!-- Create <li> element for each task -->
                                 <li class="list-row py-2 rounded-none border-b border-gray-300 first:border-t">
+                                    
+                                    <!-- Flag as important button/indicator -->
+                                    <div class="">
+                                        <!-- Add logic for flag button to toggle importance -->
+                                        <form action="toggleImportance.php" method="POST" class="">
+                                            <!-- Get task ID from database -->
+                                            <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
+                                            <!-- If task is done, fade button -->
+                                            <button type="submit" title="Mark task as important" class="btn btn-ghost btn-square btn-warning <?php echo $task['is_done'] ? 'opacity-40' : '' ?>">
+                                                <!-- If tasks is flagged as important, then flag button is filled in. If not, then it's unfilled. -->
+                                                <i class="<?php echo $task['is_important'] ? 'fa-solid' : 'fa-regular' ?> fa-flag fa-lg"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
                                     <!-- Task title -->
-                                    <!-- Check if task is done, if it is then style accordingly -->
-                                    <div class="list-col-grow content-center <?php echo $task['is_done'] ? 'line-through opacity-60' : '' ?>">
+                                    <!-- If task is done, if it is then fade text and strikethrough -->
+                                    <div class="list-col-grow content-center <?php echo $task['is_done'] ? 'line-through opacity-50' : '' ?>">
                                         <?php echo $task['title']; ?>
                                     </div>
 
-                                    <!-- Check button -->
+                                    <!-- Check button/completion indicator -->
                                     <div class="">
                                         <!-- Add logic for check button to toggle completion status -->
                                         <form action="toggleComplete.php" method="POST" class="">
                                             <!-- Get task ID from database -->
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
-                                            <button type="submit" title="Mark task as completed" class="btn btn-outline border-none btn-square btn-success">
+                                            <!-- If task is done, fade button -->
+                                            <button type="submit" title="Mark task as completed" class="btn btn-ghost btn-square btn-success  <?php echo $task['is_done'] ? 'opacity-50' : '' ?>">
                                                 <!-- If tasks is completed, then check button is filled in. If not, then it's unfilled. -->
                                                 <i class="<?php echo $task['is_done'] ? 'fa-solid' : 'fa-regular' ?> fa-circle-check fa-xl"></i>
                                             </button>
@@ -167,7 +184,7 @@ if ($completed_task_count != 0) {
                                         <form action="delete.php" method="POST" class="">
                                             <!-- Get task ID from database -->
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
-                                            <button type="submit" title="Delete task" class="btn btn-outline border-none btn-square btn-error ">
+                                            <button type="submit" title="Delete task" class="btn btn-ghost btn-square btn-error ">
                                                 <i class="fa-solid fa-trash fa-xl"></i>
                                             </button>
                                         </form>
