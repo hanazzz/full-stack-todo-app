@@ -25,28 +25,6 @@ function updateMotivationalText() {
 }
 
 
-///////////////////////////
-// CLEAR ALL TASKS BUTTON
-///////////////////////////
-
-// Confirm that user wants to clear all tasks when click "Clear all tasks" button
-
-const clearForm = document.getElementById("clear-form");
-
-function confirmClearForm(event) {
-    const yesSubmit = confirm("Are you sure you want to delete ALL tasks? This action is irreversible.")
-
-    if (!yesSubmit) {
-        event.preventDefault();
-    } else {
-        alert('All tasks have been deleted.')
-    }
-}
-
-// If the "Clear all tasks" button is found, then add event listener
-// This check prevents an error from happening when there are no tasks (and thus no button)
-clearForm ? clearForm.addEventListener("submit", confirmClearForm) : null;
-
 
 ///////////////////////////
 // THEME SELECTION

@@ -250,13 +250,40 @@ if ($completed_task_count != 0) {
                     </ul>
                 </div>
 
-                <!-- Clear tasks -->
+                <!-- Clear all tasks -->
                 <div class="flex items-end justify-center">
-                    <form id="clear-form" action="deleteAll.php" method="POST">
-                        <button type="submit" class="btn btn-error mt-6 mb-4 sm:mt-10 sm:mb-8">
-                            Clear all tasks
-                        </button>
-                    </form>
+
+                    <!-- Clear all button -->
+                    <button class="btn btn btn-error mt-6 mb-4 sm:mt-10 sm:mb-8" onclick="my_modal_1.showModal()">
+                        Clear all tasks
+                    </button>
+                    
+                    <!-- Clear all modal -->
+                    <dialog id="my_modal_1" class="modal">
+                    <div class="modal-box">
+                        <!-- Confirmation text -->
+                        <h3 class="text-lg font-bold">IMPORTANT</h3>
+                        <p class="py-4">Are you sure you want to delete ALL tasks?</p>
+                        <p class="py-4">This action is irreversible.</p>
+
+                        <!-- Buttons -->
+                        <div class="modal-action flex flex-end items-center">
+                            <!-- Close modal and don't delete -->
+                            <form method="dialog">
+                                <!-- if there is a button in form, it will close the modal -->
+                                <button class="btn">
+                                    Cancel
+                                </button>
+                            </form>
+                            <!-- Confirm clear all tasks -->
+                            <form id="clear-form" action="deleteAll.php" method="POST">
+                                <button type="submit" class="btn btn-error">
+                                    Delete all tasks
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    </dialog>
                 </div>
 
                 <?php endif; ?>
