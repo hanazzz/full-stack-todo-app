@@ -17,6 +17,7 @@ while ($task_row = mysqli_fetch_assoc($task_result__set)) {
     // Converts is_done and is_important to integer (from string)
     $task_row['is_done'] = (int)$task_row['is_done'];
     $task_row['is_important'] = (int)$task_row['is_important'];
+
     $task_rows[] = $task_row;
 }
 
@@ -73,9 +74,64 @@ if ($completed_task_count != 0) {
 </head>
 
 <body class="flex flex-col h-screen">
-    <main class="grow">
-        <div class="my-4 sm:mt-12 sm:mb-16 mx-auto px-4 md:px-8 lg:px-16 md:grid md:grid-cols-3 gap-12">
 
+    <main class="grow">
+        <!-- Theme Controller -->
+        <div class="fixed top-2 right-2 z-99">
+            <!-- Button to open theme dropdown menu -->
+            <button class="btn btn-accent soft btn-circle opacity-80 sm:mr-2 sm:mt-2" popovertarget="popover-theme" style="anchor-name:--anchor-theme">
+                <i class="fa-solid fa-lg fa-palette"></i>
+            </button>
+            <!-- Theme options -->
+            <ul class="dropdown dropdown-end menu w-auto rounded-box bg-base-100 shadow-sm mt-1.5"
+            popover id="popover-theme" style="position-anchor:--anchor-theme">
+                <form id="theme-form">
+                    <li>
+                    <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="Garden"
+                        value="garden" />
+                    </li>
+                    <li>
+                    <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="Light"
+                        value="light" />
+                    </li>
+                    <li>
+                    <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="CMYK"
+                        value="cmyk" />
+                    </li>
+                    <li>
+                    <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="Dim"
+                        value="dim" />
+                    </li>
+                    <li>
+                    <input
+                        type="radio"
+                        name="theme-dropdown"
+                        class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                        aria-label="Abyss"
+                        value="abyss" />
+                    </li>
+                </form>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="my-4 sm:mt-12 sm:mb-16 mx-auto px-4 md:px-8 lg:px-16 md:grid md:grid-cols-3 gap-12">
 
             <!-- To-do Tracker -->
             <div class="flex justify-center items-start border-b md:border-b-0 md:border-r border-gray-300">
@@ -93,7 +149,7 @@ if ($completed_task_count != 0) {
                             </div>
                             <!-- Display percentage of tasks completed using a progress indicator -->
                             <div>
-                                <progress class="progress progress-success w-56 md:w-50 lg:w-56" value="<?php echo $completed_task_percentage ?>" max="100"></progress>
+                                <progress class="progress progress-success w-56 md:w-40 lg:w-56" value="<?php echo $completed_task_percentage ?>" max="100"></progress>
                             </div>
                         </div>
                     </div>
