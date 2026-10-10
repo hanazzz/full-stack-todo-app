@@ -1,1 +1,9 @@
+# Operating system
 .DS_Store
+
+# IDE configuration
+.vscode
+
+# Personal development notes
+*.md
+!README.md

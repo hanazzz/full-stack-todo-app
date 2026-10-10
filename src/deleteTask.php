@@ -1,7 +1,7 @@
 <?php
 
 // Connect to the database
-require __DIR__ . '/db.php';
+require __DIR__ . '/../config/db.php';
 
 // Get task ID from the hidden input
 $task_id = (int)($_POST['id'] ?? 0);
@@ -12,7 +12,7 @@ if ($task_id > 0) {
 }
 
 // Redirect back to index.php so the new task shows
-header('Location: index.php');
+header('Location: ../public/index.php');
 
 // Stop executing script
 exit;

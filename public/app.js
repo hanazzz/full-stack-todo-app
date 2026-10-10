@@ -30,6 +30,8 @@ function updateMotivationalText() {
 // THEME SELECTION
 ///////////////////////////
 
+// Allow user to select theme
+
 // Set default theme as a fail safe
 const defaultTheme = 'garden'
 

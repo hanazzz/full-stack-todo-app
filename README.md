@@ -58,10 +58,10 @@ To run this app locally on your computer:
     - Click **New** from the left sidebar.
     - Name the database `full_stack_todo_app`.
     - Select **utf8mb4_general_ci** for the collation.
-    - Click **Create**.
+    - Click **Create** and you will now have a database called **full_stack_todo_app**.
     - Click the **Import** tab.
-    - **Import the `create_db.sql` file** located in your project repository.
+    - **Import the `create_db.sql` file** located in your project repository (in the config folder). You will now have a table called **tasks**.
 
 ### Run the application
-7. In a new browser tab, **go to [http://localhost:8888/](http://localhost:8888/)**.
-8. Click **full-stack-todo-app/** to launch and use the app.
+7. In a new browser tab, **go to [http://localhost:8888/full-stack-todo-app/public/index.php/](http://localhost:8888/full-stack-todo-app/public/index.php)**.
+8. You should now be able to see and use the app.

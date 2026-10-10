@@ -1,7 +1,7 @@
 <?php
 
 // Connects to the database
-require __DIR__ . '/db.php';
+require __DIR__ . '/../config/db.php';
 
 // FETCHING DATA FROM DATABASE
 // Runs every time page reloads
@@ -165,7 +165,7 @@ if ($completed_task_count != 0) {
 
                 <!-- Task Input -->
                 <div class="mx-auto">
-                    <form action="add.php" method="POST">
+                    <form action="../src/addTask.php" method="POST">
                         <div class="w-2xs sm:w-md my-8 mx-auto join">
                             <!-- <div class="w-full sm:w-lg"> -->
                             <label class="w-full input focus:bg-base-200 join-item">
@@ -203,7 +203,7 @@ if ($completed_task_count != 0) {
                                     <!-- Flag as important button/indicator -->
                                     <div class="">
                                         <!-- Add logic for flag button to toggle importance -->
-                                        <form action="toggleImportance.php" method="POST" class="">
+                                        <form action="../src/toggleImportance.php" method="POST" class="">
                                             <!-- Get task ID from database -->
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
                                             <!-- If task is done, fade button -->
@@ -223,7 +223,7 @@ if ($completed_task_count != 0) {
                                     <!-- Check button/completion indicator -->
                                     <div class="">
                                         <!-- Add logic for check button to toggle completion status -->
-                                        <form action="toggleComplete.php" method="POST" class="">
+                                        <form action="../src/toggleComplete.php" method="POST" class="">
                                             <!-- Get task ID from database -->
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
                                             <!-- If task is done, fade button -->
@@ -237,7 +237,7 @@ if ($completed_task_count != 0) {
                                     <!-- Trash button -->
                                     <div class="">
                                         <!-- Add logic for trash button to delete tasks -->
-                                        <form action="delete.php" method="POST" class="">
+                                        <form action="../src/deleteTask.php" method="POST" class="">
                                             <!-- Get task ID from database -->
                                             <input type="hidden" name="id" value="<?php echo $task['id']; ?>">
                                             <button type="submit" title="Delete task" class="btn btn-ghost btn-square btn-error ">
@@ -250,15 +250,15 @@ if ($completed_task_count != 0) {
                     </ul>
                 </div>
 
-                <!-- Clear all tasks -->
+                <!-- Delete all tasks -->
                 <div class="flex items-end justify-center">
 
-                    <!-- Clear all button -->
+                    <!-- Delete all button -->
                     <button class="btn btn btn-error mt-6 mb-4 sm:mt-10 sm:mb-8" onclick="my_modal_1.showModal()">
-                        Clear all tasks
+                        Delete all tasks
                     </button>
                     
-                    <!-- Clear all modal -->
+                    <!-- Delete all modal -->
                     <dialog id="my_modal_1" class="modal">
                     <div class="modal-box">
                         <!-- Confirmation text -->
@@ -275,8 +275,8 @@ if ($completed_task_count != 0) {
                                     Cancel
                                 </button>
                             </form>
-                            <!-- Confirm clear all tasks -->
-                            <form id="clear-form" action="deleteAll.php" method="POST">
+                            <!-- Confirm Delete all tasks -->
+                            <form action="../src/deleteAllTasks.php" method="POST">
                                 <button type="submit" class="btn btn-error">
                                     Delete all tasks
                                 </button>

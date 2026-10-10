@@ -1,7 +1,7 @@
 <?php
 
 // Connect to the database
-require __DIR__ . '/db.php';
+require __DIR__ . '/../config/db.php';
 
 // Get the text from the form input
 // Ignore white space
@@ -18,7 +18,7 @@ if ($new_task_title !== '') {
 }
 
 // Redirect back to index.php so the new task shows
-header('Location: index.php');
+header('Location: ../public/index.php');
 
 // Stop executing script
 exit;
