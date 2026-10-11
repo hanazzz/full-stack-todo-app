@@ -1,10 +1,34 @@
 <?php
 
+// Start sessions
+session_start();
+
 // Connects to the database
 require __DIR__ . '/../config/db.php';
 
 // FETCHING DATA FROM DATABASE
 // Runs every time page reloads
+
+// Check if there is a $_SESSION['user_id'] --> if (isset($_SESSION['user_id']))
+// If not:
+    // skip querying db
+    // Get current session id (via session_id() ?)
+    // Set $_SESSION['user_id'] as current session id
+// If yes:
+    // query DB to get all tasks from the user
+    // check for tasks where user_id matches $_SESSION['user_id']
+
+
+// if (isset($_SESSION['user_id'])) {
+//     echo "Welcome back! Your user id is: $_SESSION['user_id']";
+// } else {
+//     echo "Welcome new user!";
+//     echo session_id();
+//     $_SESSION['user_id'] = session_id();
+//     echo "Your user id is: $_SESSION['user_id']";
+
+// }
+
 // Runs a query to get all tasks from the database (incomplete tasks first, then newest first)
 $task_result__set = mysqli_query(
     $mysqli, 
@@ -74,7 +98,17 @@ if ($completed_task_count != 0) {
 </head>
 
 <body class="flex flex-col h-screen">
-
+    <?php
+    // Check if user has existing user ID stored in session. If not, set one.
+    if (isset($_SESSION['user_id'])) {
+        echo "Welcome back! Your user id is " . $_SESSION['user_id'] . "<br>";
+    } else {
+        echo "Welcome new user! <br>";
+        echo session_id() . "<br>";
+        $_SESSION['user_id'] = session_id();
+        echo "Your user id is " . $_SESSION['user_id'] . "<br>";
+    }
+    ?>
     <main class="grow">
         <!-- Theme Controller -->
         <div class="fixed top-2 right-2 z-99">
