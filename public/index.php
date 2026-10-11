@@ -251,7 +251,7 @@ if ($completed_task_count != 0) {
                                     <!-- Task title -->
                                     <!-- If task is done, if it is then fade text and strikethrough -->
                                     <div class="list-col-grow content-center <?php echo $task['is_done'] ? 'line-through opacity-50' : '' ?>">
-                                        <?php echo $task['title']; ?>
+                                        <?php echo $task['title'] . " * user id: " . $_SESSION['user_id']; ?>
                                     </div>
 
                                     <!-- Check button/completion indicator -->
