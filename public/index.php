@@ -9,28 +9,11 @@ require __DIR__ . '/../config/db.php';
 // FETCHING DATA FROM DATABASE
 // Runs every time page reloads
 
-// Check if there is a $_SESSION['user_id'] --> if (isset($_SESSION['user_id']))
-// If not:
-    // skip querying db
-    // Get current session id (via session_id() ?)
-    // Set $_SESSION['user_id'] as current session id
-// If yes:
-    // query DB to get all tasks from the user
-    // check for tasks where user_id matches $_SESSION['user_id']
-
-
-// If there is a SESSION user id, store user id in variable
-// check database for user
-// If matching user is found
-    // display tasks (don't do anything?? check which tasks to show later)
-// If matching user NOT found
-    // Create user in db
-
 
 // Check if user has existing user ID stored in session. 
 // If yes, then search for user ID in database. If no, set an.
 if (isset($_SESSION['user_id'])) {
-    echo "Welcome back! Your user id is " . $_SESSION['user_id'] . "<br>";
+    echo "Welcome back! Your user id is " . $_SESSION['user_id'] . "<br>"; // FOR TESTING ONLY
 
     $user_id = $_SESSION['user_id'];
 
@@ -53,11 +36,11 @@ if (isset($_SESSION['user_id'])) {
 
     // If user exists in database
     if ($found) {
-        echo 'found in db';
+        echo 'found in db'; // FOR TESTING ONLY
     } else {
-        echo 'not found in db';
+        echo 'not found in db'; // FOR TESTING ONLY
         // If user not in database, create them
-        // mysqli_query($mysqli, "INSERT INTO users (user_id) VALUES ('$user_id')");
+
         // Prepare statement
         $sql = "INSERT INTO users (user_id) VALUES (?)";
         $stmt = $mysqli->prepare($sql);
@@ -65,35 +48,38 @@ if (isset($_SESSION['user_id'])) {
         $stmt->bind_param('s', $user_id);
         // Execute statement to insert rows into table
         $stmt->execute();
-        // // Store result from query to $found variable (which will have the number of rows found)
-        // $stmt->bind_result($found);
-        // // Fetch result from prepared statement
-        // $stmt->fetch();
+        // Store result from query to $found variable (which will have the number of rows found)
+        $stmt->bind_result($found);
+        // Fetch result from prepared statement
+        $stmt->fetch();
 
-        // $stmt->free_result();
+        $stmt->free_result();
     }
 } else {
     // If user does not have an existing user ID stored in session
-    echo "Welcome new user!";
+    echo "Welcome new user!"; // FOR TESTING ONLY
     // Store session ID as user ID
     $_SESSION['user_id'] = session_id();
-    echo "Your user id is " . $_SESSION['user_id'];
     $user_id = $_SESSION['user_id'];
+
+    echo "Your user id is " . $_SESSION['user_id']; // FOR TESTING ONLY
     // Create user in database
+    // Prepare statement
     $sql = "INSERT INTO users (user_id) VALUES (?)";
     $stmt = $mysqli->prepare($sql);
     // Bind variables to the prepared statement as paramters
     $stmt->bind_param('s', $user_id);
     // Execute statement to insert rows into table
     $stmt->execute();
-    // mysqli_query($mysqli, "INSERT INTO users (user_id) VALUES ('$user_id')");
 }
 
 
-// Runs a query to get all tasks from the database (incomplete tasks first, then newest first)
+// TO DO: Rewrite using prepared statement
+// Runs a query to get all tasks from the database belonging to the user ID
+// (incomplete tasks first, then newest first)
 $task_result__set = mysqli_query(
     $mysqli, 
-    "SELECT id, title, is_important, is_done FROM tasks ORDER BY is_done, id DESC"
+    "SELECT id, title, is_important, is_done FROM tasks WHERE user_id='$user_id' ORDER BY is_done, id DESC"
 );
 
 // Stores all rows of data in a php array for later use
