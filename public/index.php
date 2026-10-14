@@ -6,71 +6,34 @@ session_start();
 // Connects to the database
 require __DIR__ . '/../config/db.php';
 
-// FETCHING DATA FROM DATABASE
-// Runs every time page reloads
+require '../src/handleUser.php';
 
-
-// Check if user has existing user ID stored in session. 
-// If yes, then search for user ID in database. If no, set an.
+// Check if user has existing user ID stored in session.
+// If yes, then store user ID as variable and search database
 if (isset($_SESSION['user_id'])) {
-    echo "Welcome back! Your user id is " . $_SESSION['user_id'] . "<br>"; // FOR TESTING ONLY
-
+    echo 'session id exists'; // FOR TESTING ONLY
+    // Store user ID from session
     $user_id = $_SESSION['user_id'];
+    // Search database for user ID
+    $found = findUser($user_id, $mysqli);
 
-    // Look for user in db
-
-    // Prepare statement
-    $sql = "SELECT count(*) FROM users WHERE user_ID = ?";
-    $stmt = $mysqli->prepare($sql);
-    // Bind variables to the prepared statement as paramters
-    $stmt->bind_param('s', $user_id);
-    // Execute statement to perform search
-    $stmt->execute();
-    // Store result from query to $found variable (which will have the number of rows found)
-    $stmt->bind_result($found);
-    // Fetch result from prepared statement
-    $stmt->fetch();
-
-    $stmt->free_result();
-
-
-    // If user exists in database
+    // If user is found in db
     if ($found) {
         echo 'found in db'; // FOR TESTING ONLY
     } else {
         echo 'not found in db'; // FOR TESTING ONLY
-        // If user not in database, create them
-
-        // Prepare statement
-        $sql = "INSERT INTO users (user_id) VALUES (?)";
-        $stmt = $mysqli->prepare($sql);
-        // Bind variables to the prepared statement as paramters
-        $stmt->bind_param('s', $user_id);
-        // Execute statement to insert rows into table
-        $stmt->execute();
-        // Store result from query to $found variable (which will have the number of rows found)
-        $stmt->bind_result($found);
-        // Fetch result from prepared statement
-        $stmt->fetch();
-
-        $stmt->free_result();
+        // If user is not found in db
+        // Create user in db
+        createUser($user_id, $mysqli);
     }
 } else {
+    echo 'session id does not exist'; // FOR TESTING ONLY
     // If user does not have an existing user ID stored in session
-    echo "Welcome new user!"; // FOR TESTING ONLY
     // Store session ID as user ID
     $_SESSION['user_id'] = session_id();
     $user_id = $_SESSION['user_id'];
-
-    echo "Your user id is " . $_SESSION['user_id']; // FOR TESTING ONLY
-    // Create user in database
-    // Prepare statement
-    $sql = "INSERT INTO users (user_id) VALUES (?)";
-    $stmt = $mysqli->prepare($sql);
-    // Bind variables to the prepared statement as paramters
-    $stmt->bind_param('s', $user_id);
-    // Execute statement to insert rows into table
-    $stmt->execute();
+    // Create user in db
+    createUser($user_id, $mysqli);
 }
 
 
