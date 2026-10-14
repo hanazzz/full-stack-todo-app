@@ -19,15 +19,76 @@ require __DIR__ . '/../config/db.php';
     // check for tasks where user_id matches $_SESSION['user_id']
 
 
-// if (isset($_SESSION['user_id'])) {
-//     echo "Welcome back! Your user id is: $_SESSION['user_id']";
-// } else {
-//     echo "Welcome new user!";
-//     echo session_id();
-//     $_SESSION['user_id'] = session_id();
-//     echo "Your user id is: $_SESSION['user_id']";
+// If there is a SESSION user id, store user id in variable
+// check database for user
+// If matching user is found
+    // display tasks (don't do anything?? check which tasks to show later)
+// If matching user NOT found
+    // Create user in db
 
-// }
+
+// Check if user has existing user ID stored in session. 
+// If yes, then search for user ID in database. If no, set an.
+if (isset($_SESSION['user_id'])) {
+    echo "Welcome back! Your user id is " . $_SESSION['user_id'] . "<br>";
+
+    $user_id = $_SESSION['user_id'];
+
+    // Look for user in db
+
+    // Prepare statement
+    $sql = "SELECT count(*) FROM users WHERE user_ID = ?";
+    $stmt = $mysqli->prepare($sql);
+    // Bind variables to the prepared statement as paramters
+    $stmt->bind_param('s', $user_id);
+    // Execute statement to perform search
+    $stmt->execute();
+    // Store result from query to $found variable (which will have the number of rows found)
+    $stmt->bind_result($found);
+    // Fetch result from prepared statement
+    $stmt->fetch();
+
+    $stmt->free_result();
+
+
+    // If user exists in database
+    if ($found) {
+        echo 'found in db';
+    } else {
+        echo 'not found in db';
+        // If user not in database, create them
+        // mysqli_query($mysqli, "INSERT INTO users (user_id) VALUES ('$user_id')");
+        // Prepare statement
+        $sql = "INSERT INTO users (user_id) VALUES (?)";
+        $stmt = $mysqli->prepare($sql);
+        // Bind variables to the prepared statement as paramters
+        $stmt->bind_param('s', $user_id);
+        // Execute statement to insert rows into table
+        $stmt->execute();
+        // // Store result from query to $found variable (which will have the number of rows found)
+        // $stmt->bind_result($found);
+        // // Fetch result from prepared statement
+        // $stmt->fetch();
+
+        // $stmt->free_result();
+    }
+} else {
+    // If user does not have an existing user ID stored in session
+    echo "Welcome new user!";
+    // Store session ID as user ID
+    $_SESSION['user_id'] = session_id();
+    echo "Your user id is " . $_SESSION['user_id'];
+    $user_id = $_SESSION['user_id'];
+    // Create user in database
+    $sql = "INSERT INTO users (user_id) VALUES (?)";
+    $stmt = $mysqli->prepare($sql);
+    // Bind variables to the prepared statement as paramters
+    $stmt->bind_param('s', $user_id);
+    // Execute statement to insert rows into table
+    $stmt->execute();
+    // mysqli_query($mysqli, "INSERT INTO users (user_id) VALUES ('$user_id')");
+}
+
 
 // Runs a query to get all tasks from the database (incomplete tasks first, then newest first)
 $task_result__set = mysqli_query(
@@ -98,17 +159,7 @@ if ($completed_task_count != 0) {
 </head>
 
 <body class="flex flex-col h-screen">
-    <?php
-    // Check if user has existing user ID stored in session. If not, set one.
-    if (isset($_SESSION['user_id'])) {
-        echo "Welcome back! Your user id is " . $_SESSION['user_id'] . "<br>";
-    } else {
-        echo "Welcome new user! <br>";
-        echo session_id() . "<br>";
-        $_SESSION['user_id'] = session_id();
-        echo "Your user id is " . $_SESSION['user_id'] . "<br>";
-    }
-    ?>
+    
     <main class="grow">
         <!-- Theme Controller -->
         <div class="fixed top-2 right-2 z-99">
