@@ -7,6 +7,8 @@ session_start();
 require __DIR__ . '/../config/db.php';
 
 require '../src/handleUser.php';
+require '../src/findTasks.php';
+
 
 // Check if user has existing user ID stored in session.
 // If yes, then store user ID as variable and search database
@@ -37,23 +39,8 @@ if (isset($_SESSION['user_id'])) {
 }
 
 
-// TO DO: Rewrite using prepared statement
-// Runs a query to get all tasks from the database belonging to the user ID
-// (incomplete tasks first, then newest first)
-$task_result__set = mysqli_query(
-    $mysqli, 
-    "SELECT id, title, is_important, is_done FROM tasks WHERE user_id='$user_id' ORDER BY is_done, id DESC"
-);
-
-// Stores all rows of data in a php array for later use
-$task_rows = [];
-while ($task_row = mysqli_fetch_assoc($task_result__set)) {
-    // Converts is_done and is_important to integer (from string)
-    $task_row['is_done'] = (int)$task_row['is_done'];
-    $task_row['is_important'] = (int)$task_row['is_important'];
-
-    $task_rows[] = $task_row;
-}
+// Get user's tasks from database
+$task_rows = findTasks($user_id, $mysqli);
 
 // TASK TOTALS FOR TO-DO TRACKER
 // Counts # of all tasks
