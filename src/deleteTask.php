@@ -1,3 +1,5 @@
+<!-- Handles logic for deleting a task -->
+
 <?php
 
 // Connect to the database

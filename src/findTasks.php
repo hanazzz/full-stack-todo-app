@@ -1,3 +1,5 @@
+<!-- Handles logic for retrieving tasks from database -->
+
 <?php
 
 /**

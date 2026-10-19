@@ -1,3 +1,5 @@
+<!-- Handles logic for adding a task -->
+
 <?php
 
 session_start();

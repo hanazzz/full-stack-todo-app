@@ -13,23 +13,18 @@ require '../src/findTasks.php';
 // Check if user has existing user ID stored in session.
 // If yes, then store user ID as variable and search database
 if (isset($_SESSION['user_id'])) {
-    echo 'session id exists'; // FOR TESTING ONLY
     // Store user ID from session
     $user_id = $_SESSION['user_id'];
     // Search database for user ID
     $found = findUser($user_id, $mysqli);
 
-    // If user is found in db
-    if ($found) {
-        echo 'found in db'; // FOR TESTING ONLY
-    } else {
-        echo 'not found in db'; // FOR TESTING ONLY
+    // If user is not found in db
+    if (!$found) {
         // If user is not found in db
         // Create user in db
         createUser($user_id, $mysqli);
     }
 } else {
-    echo 'session id does not exist'; // FOR TESTING ONLY
     // If user does not have an existing user ID stored in session
     // Store session ID as user ID
     $_SESSION['user_id'] = session_id();
@@ -238,7 +233,7 @@ if ($completed_task_count != 0) {
                                     <!-- Task title -->
                                     <!-- If task is done, if it is then fade text and strikethrough -->
                                     <div class="list-col-grow content-center <?php echo $task['is_done'] ? 'line-through opacity-50' : '' ?>">
-                                        <?php echo $task['title'] . " * user id: " . $_SESSION['user_id']; ?>
+                                        <?php echo $task['title']; ?>
                                     </div>
 
                                     <!-- Check button/completion indicator -->

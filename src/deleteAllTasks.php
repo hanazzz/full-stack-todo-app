@@ -1,3 +1,5 @@
+<!-- Handles logic for deleting all tasks -->
+
 <?php
 
 // Resume session
