@@ -10,7 +10,13 @@ require __DIR__ . '/../config/db.php';
 $user_id = $_SESSION['user_id'];
 
 // Delete all of current user's tasks from database and UI
-mysqli_query($mysqli, "DELETE FROM tasks WHERE user_id = '$user_id'");
+// Prepare statement
+$sql = "DELETE FROM tasks WHERE user_id = ?";
+$stmt = $mysqli->prepare($sql);
+// Bind variable (user ID) to statement as parameter
+$stmt->bind_param('s', $user_id);
+// Execute statement to delete all tasks
+$stmt->execute();
 
 // Redirect back to index.php so the new task shows
 header('Location: ../public/index.php');

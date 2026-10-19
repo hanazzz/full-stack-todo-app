@@ -10,10 +10,13 @@ $task_id = (int)($_POST['id'] ?? 0);
 
 // If valid id, then flip the is_done from 0 to 1 or 1 to 0
 if($task_id > 0) {
-    mysqli_query(
-        $mysqli,
-        "UPDATE tasks SET is_done = IF(is_done=1, 0, 1) WHERE id = $task_id"
-    );
+    // Prepare statement
+    $sql = "UPDATE tasks SET is_done = IF(is_done=1, 0, 1) WHERE id = ?";
+    $stmt = $mysqli->prepare($sql);
+    // Bind variable (task ID) to statement as parameter
+    $stmt->bind_param('i', $task_id);
+    // Execute statement to delete task
+    $stmt->execute();
 }
 
 // Redirect back to index.php so the new task shows on page

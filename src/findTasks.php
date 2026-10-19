@@ -9,14 +9,21 @@
  * @return array Returns an array of all tasks for the target user.
  */
 function findTasks($user_id, $mysqli) {
+
     // Runs a query to get all tasks from the database belonging to the user ID
-    $task_result__set = mysqli_query(
-        $mysqli, 
-        "SELECT id, title, is_important, is_done FROM tasks WHERE user_id='$user_id' ORDER BY is_done, id DESC"
-    );
+
+    // Prepare statement
+    $sql = "SELECT id, title, is_important, is_done FROM tasks WHERE user_ID = ? ORDER BY is_done, id DESC";
+    $stmt = $mysqli->prepare($sql);
+    // Bind variable (user ID) to statement as parameter
+    $stmt->bind_param('s', $user_id);
+    // Execute statement and get results from search
+    $stmt->execute();
+    $task_result__set = $stmt->get_result();
 
     // Stores all rows of data in a php array for later use
     $task_rows = [];
+
     while ($task_row = mysqli_fetch_assoc($task_result__set)) {
         // Converts is_done and is_important to integer (from string)
         $task_row['is_done'] = (int)$task_row['is_done'];

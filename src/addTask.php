@@ -12,14 +12,17 @@ $new_task_title = trim($_POST['task_title'] ?? '');
 
 // Only insert task if the input is not empty
 if ($new_task_title !== '') {
-    // Escape the text to make it safe for SQL
-    $escaped_title = mysqli_real_escape_string($mysqli, $new_task_title);
-
-    // Get user id from session, escape the text
-    $escaped_user_id = mysqli_real_escape_string($mysqli, $user_id);
+    // Get user id from session
+    $user_id = $_SESSION['user_id'];
 
     // Insert the new task into the database, include user id
-    mysqli_query($mysqli, "INSERT INTO tasks (title, user_id) VALUES ('$escaped_title', '$escaped_user_id')");
+    // Prepare statement
+    $sql = "INSERT INTO tasks (title, user_id) VALUES (?, ?)";
+    $stmt = $mysqli->prepare($sql);
+    // Bind variables to the prepared statement as parameters
+    $stmt->bind_param('ss', $new_task_title, $user_id);
+    // Execute statement to insert new user row into table
+    $stmt->execute();
 }
 
 // Redirect back to index.php so the new task shows
