@@ -1,25 +1,36 @@
 # To-Do List App
-A simple, full-stack to-do list web application.
+A simple, responsive full-stack to-do list web application.
 
 
 ## Demo
+🚀 [View the live demo](http://todo-demo.hanazait.com/)
+
 <img src="docs/Demo - Screenshot - Empty page.png" width="600" />
 <img src="docs/Demo - Screenshot - Tasks.png" width="600" />
 <img src="docs/Demo - Screenshot - Theme selection.png" width="600" />
 
 
 ## Overview
-I built this app as an exercise to learn the basics of PHP. The project is based on this [Build a Full Stack To-Do App with PHP & MySQL](https://youtu.be) tutorial.
-
-
-To build upon the tutorial, I made some changes and additions:
-- Added ability to flag tasks as important
+I built this app as an exercise to learn the basics of PHP, using [a tutorial](https://www.youtube.com/watch?v=cWfVVqOAM4I) as the initial foundation. I then built upon what I learned by adding several features and improvements:
+- Added the ability to flag tasks as important
 - Modified the query logic to display incomplete tasks before complete tasks, then sort tasks by their original creation date
 - Migrated from using vanilla CSS to using a CSS framework and component library (Tailwind CSS and daisyUI)
 - Added the ability to switch themes
-- Modified check mark button to change appearance depending on task completion status
+- Modified the complete button to change appearance depending on task completion status
 - Added a visual representation of the percentage of completed tasks using a progress indicator
 - Updated the motivational text to randomly display different text from an array of options, rather than a single static phrase
+- Added basic user authentication for the live version
+
+### Deployment Process
+Deploying a live public demo introduced data privacy challenges. In the initial project, all tasks from the database were displayed. While a single, global task list works for running the app locally, it would have been a security issue for a live, public environment. However, I still wanted users to be able to test out the app instantly without creating a login.
+
+To address this issue, I implemented simple user authentication using PHP sessions. This allows people to access the live app, while keeping their tasks private. When a user visits the live site, I revised the app to initiate a unique, temporary guest session. This assigns them a hidden identifier to separate their tasks from other visitors without forcing them to create a formal username and password. Because this is a temporary demo, data does not persist beyond the active browser session. I also set up the database to periodically wipe all user and task data to maintain visitor privacy and clear out old data.
+
+The repository is split into two branches to manage these two versions of the app:
+
+1. Local Development Version (`main` branch) - For local use only. Anyone running this version can access all tasks in their local database.
+
+2. Live Deployed Version (`production` branch) - For public demonstration. Users can only see tasks they create during their browser session.
 
 
 ## Built With
@@ -40,7 +51,6 @@ To build upon the tutorial, I made some changes and additions:
 
 ## Possible Future Improvements
 - Functional
-    - Track individual user's tasks using PHP sessions
     - Track and display task completion dates
     - Add ability for users to submit their own motivational phrases or choose the ones they want from a list
     - Add button for users to refresh motivational phrase (or to disable them entirely)
