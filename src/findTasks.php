@@ -6,7 +6,7 @@
  * Retrieves all tasks in database for a given user ID (incomplete tasks first, then newest first)
  *
  * @param string $user_id The ID of the target user.
- * @param object $mysqli_connect Object retpresenting MySQL server connection.
+ * @param object $mysqli Object representing MySQL server connection.
  * 
  * @return array Returns an array of all tasks for the target user.
  */

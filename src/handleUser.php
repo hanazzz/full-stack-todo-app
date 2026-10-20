@@ -5,8 +5,8 @@
 /**
  * Looks for a given user ID in database
  *
- * @param string $userId The ID of the target user.
- * @param object $mysqli_connect Object retpresenting MySQL server connection
+ * @param string $user_id The ID of the target user.
+ * @param object $mysqli Object representing MySQL server connection
  * 
  * @return int Returns number of rows found in database that match user ID.
  */
