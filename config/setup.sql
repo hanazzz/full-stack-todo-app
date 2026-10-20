@@ -30,3 +30,12 @@ CREATE EVENT IF NOT EXISTS `empty_users`
     ON SCHEDULE
     EVERY 7 DAY
     DO DELETE FROM `users`;
+
+-- If unable to create scheduled event: Create site settings table
+CREATE TABLE site_settings (
+    setting_key VARCHAR(50) PRIMARY KEY,
+    setting_value VARCHAR(255) NOT NULL
+);
+
+-- Create row to store date of last database cleanup
+INSERT INTO site_settings (setting_key, setting_value) VALUES ('last_cleanup', '0');

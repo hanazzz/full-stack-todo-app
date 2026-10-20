@@ -8,6 +8,9 @@ require __DIR__ . '/../config/db.php';
 
 require '../src/handleUser.php';
 require '../src/findTasks.php';
+require '../src/cleanDB.php';
+
+cleanDB($mysqli);
 
 
 // Check if user has existing user ID stored in session.
