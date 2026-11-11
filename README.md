@@ -1,13 +1,26 @@
 # To-Do List App
-A simple, responsive full-stack to-do list web application.
+A simple, responsive full-stack to-do list web application created in October 2026.
+
+## Table of Contents
+  - [Demo](#demo)
+  - [Overview](#overview)
+  - [Tech Stack](#tech-stack)
+  - [Features](#features)
+  - [Possible Future Improvements](#possible-future-improvements)
+  - [Installation](#installation)
 
 
 ## Demo
-🚀 [View the live demo](http://todo-demo.hanazait.com/)
+🚀 [Try the live demo](http://todo-demo.hanazait.com/)
 
-<img src="docs/Demo - Screenshot - Empty page.png" width="600" />
-<img src="docs/Demo - Screenshot - Tasks.png" width="600" />
-<img src="docs/Demo - Screenshot - Theme selection.png" width="600" />
+*Empty task dashboard (Light theme)*  
+<img src="docs/Demo - Screenshot - Empty page.png" width="600" alt="Page when user first opens app and there aren't any tasks. Theme: Light" />
+
+*Task dashboard with flagged, unflagged, complete, and incomplete tasks (CMYK theme)*  
+<img src="docs/Demo - Screenshot - Tasks.png" width="600" alt="Page with tasks, all in a variety of different statuses (flagged vs unflagged, complete vs incomplete). Theme: CMYK" />
+
+*Theme selection menu (Dim theme)*  
+<img src="docs/Demo - Screenshot - Theme selection.png" width="600" alt="Page showing theme selection menu. Theme: Dim" />
 
 
 ## Overview
@@ -24,7 +37,7 @@ I built this app as an exercise to learn the basics of PHP, using [a tutorial](h
 ### Deployment Process
 Deploying a live public demo introduced data privacy challenges. In the initial project, all tasks from the database were displayed. While a single, global task list works for running the app locally, it would have been a security issue for a live, public environment. However, I still wanted users to be able to test out the app instantly without creating a login.
 
-To address this issue, I implemented simple user authentication using PHP sessions. This allows people to access the live app, while keeping their tasks private. When a user visits the live site, I revised the app to initiate a unique, temporary guest session. This assigns them a hidden identifier to separate their tasks from other visitors without forcing them to create a formal username and password. Because this is a temporary demo, data does not persist beyond the active browser session. I also set up the database to periodically wipe all user and task data to maintain visitor privacy and clear out old data.
+To address this issue, I implemented simple user authentication using PHP sessions. This allows people to access the live app, while keeping their tasks private. When a user visits the live site, the app now initiates a unique, temporary guest session. This assigns the user a hidden identifier to separate their tasks from other visitors without forcing them to create a formal username and password. Because this is a temporary demo, data does not persist beyond the active browser session. I also set up the database to periodically wipe all user and task data to maintain visitor privacy and clear out old data.
 
 The repository is split into two branches to manage these two versions of the app:
 
@@ -33,7 +46,7 @@ The repository is split into two branches to manage these two versions of the ap
 2. Live Deployed Version (`production` branch) - For public demonstration. Users can only see tasks they create during their browser session.
 
 
-## Built With
+## Tech Stack
 - PHP
 - JavaScript
 - MySQL
